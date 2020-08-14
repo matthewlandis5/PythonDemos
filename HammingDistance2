@@ -1,0 +1,64 @@
+#An imperfect program that takes Coca-Cola rewards codes from our data sheet 
+#and solves for all theoretical codes that have a hamming distance of 2. 
+#This would later be used to look through the sheet again to see if any of these 
+#possible codes actually exist.
+
+!pip install --upgrade --quiet gspread
+from google.colab import auth
+auth.authenticate_user()
+
+import gspread
+from oauth2client.client import GoogleCredentials
+gc = gspread.authorize(GoogleCredentials.get_application_default())
+worksheet = gc.open('codes').sheet1
+rows = worksheet.get_all_values()
+#accesses the Google sheet with the codes and copies them to a var
+
+from google.colab import files
+
+with open('Hamming Distance 2.txt', 'w+') as f:
+  f.write('Hamming Distance of 2 Codes\n\n')
+#creates a txt file to hold answers
+
+  possibleChar ='BFHJKLMNPRTVWX456790'
+  List=[]
+  temp='a'
+  countTotal=1
+  count1=1
+  count2=1
+  tempWord='ab'
+  printVal=500000
+
+  for i in range(1,len(rows)):
+      if(rows[i][2]=='Yes'):
+        List.append(rows[i][0])
+
+  #print("Original: "+List[0])
+  for codeCount in range(len(List)):
+    temp=List[codeCount]
+    #temp=List [0]
+    #######if(countTotal>)trying to reduce the size of teh download files
+    if(len(temp)==14):
+      for wordCount in range (14):
+        for i in range (len(possibleChar)):
+            if(temp[wordCount]!=possibleChar[i]):
+              #this zero will be replaces with a var to roll through the chars in a code
+              tempWord=temp[:wordCount]+possibleChar[i]+temp[wordCount+1:]
+              count2=1
+              ##print(str(countTotal)+" / "+str(count1)+" / "+str(count2)+": "+tempWord)
+              f.write(str(countTotal)+" / "+str(count1)+" / "+str(count2)+": "+tempWord+"\n")
+              for wordCount2 in range (14):
+                for j in range (len(possibleChar)):
+                  if(tempWord[wordCount2]!=possibleChar[j]):
+                      ##print(str(countTotal)+" / "+str(count1)+" / "+str(count2)+": "+tempWord[:wordCount2]+possibleChar[j]+tempWord[wordCount2+1:])
+                      f.write(str(countTotal)+" / "+str(count1)+" / "+str(count2)+": "+tempWord[:wordCount2]+possibleChar[j]+tempWord[wordCount2+1:]+"\n")
+                      count2=count2+1
+                      countTotal=countTotal+1
+              count1=count1+1
+
+              #same with this one
+    if(countTotal>printVal):
+      files.download('Hamming Distance 2.txt')
+      f = open('Hamming Distance 2.txt', 'w')
+      ####### find a way to clear the txt file after it has been downloaded to ensure that the file does no overflow
+      printVal=printVal+500000
