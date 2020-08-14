@@ -2,7 +2,7 @@
 #and solves for all theoretical codes that have a hamming distance of 1. 
 #This would later be used to look through the sheet again to see if any of these 
 #possible codes actually exist.
-#This was originally written for undergrauate research with Emory University.
+#This was originally written for undergraduate research with Emory University.
 
 !pip install --upgrade --quiet gspread
 from google.colab import auth
@@ -31,7 +31,5 @@ for codeCount in range (len(List)):
     for wordCount in range (14):
       for i in range (len(possibleChar)):
           if(temp[wordCount]!=possibleChar[i]):
-            #this zero will be replaces with a var to roll through the chars in a code
             print(str(count)+": "+temp[:wordCount]+possibleChar[i]+temp[wordCount+1:])
             count=count+1
-            #same with this one
