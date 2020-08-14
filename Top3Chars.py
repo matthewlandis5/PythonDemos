@@ -1,6 +1,7 @@
-#
+#A program that takes Coca-Cola rewards codes from our data sheet 
+#and identifies the 3 most common characters in each position. 
+#This was originally written for undergraduate research with Emory University.
 
-#@title Captures the Top Three Chars at each Position
 !pip install --upgrade --quiet gspread
 from google.colab import auth
 auth.authenticate_user()
@@ -58,7 +59,6 @@ for CHARLOCATION in range (0,14):
           hashMap['0']=1+hashMap['0']
       elif hold in {'B','F','H','J','K','L','M','N','P','R','T','V','W','X','4','5','6','7','9','0'}:
         hashMap[hold]=1+hashMap[hold]
-      #print('adding '+str(hold)+'  count of '+str(count))
       count+=1
   #print(hashMap)
     #rolls through the valid codes and counts the number of occurances for each character (taking into account the possible alternative characters)
@@ -79,4 +79,3 @@ for CHARLOCATION in range (0,14):
   print('The first most common at position '+str(CHARLOCATION)+': '+str(first)+' with: '+str(firstC))
   print('The second most common at position '+str(CHARLOCATION)+': '+str(second)+' with: '+str(secondC))
   print('The third most common at position '+str(CHARLOCATION)+': '+str(third)+' with: '+str(thirdC))
-  #calculates the first and second most common characters found in the ten positions
