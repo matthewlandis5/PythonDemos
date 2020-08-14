@@ -2,6 +2,7 @@
 #and solves for all theoretical codes that have a hamming distance of 2. 
 #This would later be used to look through the sheet again to see if any of these 
 #possible codes actually exist.
+#This was originally written for undergrauate research with Emory University.
 
 !pip install --upgrade --quiet gspread
 from google.colab import auth
